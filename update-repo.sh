@@ -21,3 +21,8 @@ for f in $(find $BASEDIR -name "*-$VERSION.jar"); do
 	-DartifactId=$ARTIFACTID \
 	-Dversion=$VERSION
 done
+
+for f in $(find . -name "maven-metadata*"); do
+    FILENAME=${f/-local/}
+    cp $f $FILENAME
+done

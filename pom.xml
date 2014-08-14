@@ -151,7 +151,7 @@
   -->
   <repositories>
     <repository>
-      <id>dcoi</id>
+      <id>orientdb-test</id>
       <url>file://${basedir}/repo</url>
     </repository>
   </repositories>
