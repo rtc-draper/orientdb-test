@@ -47,6 +47,10 @@ public class Main {
             .withRequiredArg().ofType(Integer.class).defaultsTo(0);
         accepts("c", "Total number of threads to run")
             .withRequiredArg().ofType(Integer.class).defaultsTo(10000);
+        accepts("cmin", "Minimum client pool")
+            .withRequiredArg().ofType(Integer.class).defaultsTo(100);
+        accepts("cmax", "Maximum client pool")
+          .withRequiredArg().ofType(Integer.class).defaultsTo(200);
         acceptsAll(Arrays.asList("h", "?"), "show help").forHelp();
       }
     };
@@ -86,8 +90,10 @@ public class Main {
     // Various bits of orient to toggle
 //    OGlobalConfiguration.CLIENT_CONNECT_POOL_WAIT_TIMEOUT.setValue(5000);
 //    OGlobalConfiguration.CLIENT_DB_RELEASE_WAIT_TIMEOUT.setValue(5000);
-//    OGlobalConfiguration.CLIENT_CHANNEL_MAX_POOL.setValue(NumThreads*2);
-//    OGlobalConfiguration.CLIENT_CHANNEL_MIN_POOL.setValue(NumThreads);
+    OGlobalConfiguration.CLIENT_CHANNEL_MAX_POOL.setValue(
+        (Integer)CLOpts.valueOf("cmin"));
+    OGlobalConfiguration.CLIENT_CHANNEL_MIN_POOL.setValue(
+        (Integer)CLOpts.valueOf("cmax"));
 //    OGlobalConfiguration.NETWORK_LOCK_TIMEOUT.setValue(30000);
 //    OGlobalConfiguration.NETWORK_SOCKET_TIMEOUT.setValue(30000);
 //    OGlobalConfiguration.CACHE_LEVEL1_ENABLED.setValue(false);

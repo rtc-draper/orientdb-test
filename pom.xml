@@ -21,17 +21,17 @@
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orient-commons</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-core</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-enterprise</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.tinkerpop.gremlin</groupId>
@@ -41,22 +41,22 @@
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-client</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-graphdb</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-server</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.orientechnologies</groupId>
       <artifactId>orientdb-nativeos</artifactId>
-      <version>1.7.8-SNAPSHOT</version>
+      <version>1.7.9-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>net.java.dev.jna</groupId>
@@ -144,10 +144,10 @@
        -DlocalRepositoryPath=repo \
        -DcreateChecksum=true \
        -Dpackaging=jar \
-       -Dfile=/opt/orientdb/lib/orient-commons-1.7.8-SNAPSHOT.jar \
+       -Dfile=/opt/orientdb/lib/orient-commons-1.7.9-SNAPSHOT.jar \
        -DgroupId=com.orientechnologies \
        -DartifactId=orient-commons \
-       -Dversion=1.7.8-SNAPSHOT
+       -Dversion=1.7.9-SNAPSHOT
   -->
   <repositories>
     <repository>
