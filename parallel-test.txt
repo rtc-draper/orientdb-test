@@ -1,0 +1,45 @@
+```
+git clone https://github.com/orientechnologies/orientdb.git
+cd orientdb
+mvn install
+cd ..
+git clone https://github.com/rtc-draper/orientdb-test
+cd orientdb-test
+./update-repo.sh
+mvn install
+cd ..
+cp -ra orientdb/distribution/target/*.dir/* orientdb-1
+cp -ra orientdb/distribution/target/*.dir/* orientdb-2
+cp -ra orientdb/distribution/target/*.dir/* orientdb-3
+cp -ra orientdb/distribution/target/*.dir/* orientdb-4
+sed -i 's/\"writeQuorum\": 2/\"writeQuorum\": 3/g' orientdb-[1234]/config/default-distributed-db-config.json
+sed -i 's/<\!-- <parameter name=\"nodeName\" value=\"europe1\" \/> -->/<parameter name=\"nodeName\" value="node1" \/>/g' orientdb-1/config/orientdb-server-config.xml
+sed -i 's/<\!-- <parameter name=\"nodeName\" value=\"europe1\" \/> -->/<parameter name=\"nodeName\" value="node2" \/>/g' orientdb-2/config/orientdb-server-config.xml
+sed -i 's/<\!-- <parameter name=\"nodeName\" value=\"europe1\" \/> -->/<parameter name=\"nodeName\" value="node3" \/>/g' orientdb-3/config/orientdb-server-config.xml
+sed -i 's/<\!-- <parameter name=\"nodeName\" value=\"europe1\" \/> -->/<parameter name=\"nodeName\" value="node4" \/>/g' orientdb-4/config/orientdb-server-config.xml
+sed -i 's/<users>/<users>\n\t<user resources=\"database.passthrough\" password=\"password\" name=\"replicator\"\/>\n\t<user resources=\"*\" password=\"password\" name=\"root\"\/>\n\t<user resources=\"connect,server.listDatabases,server.dblist\" password=\"guest\" name=\"guest\"\/>/g' orientdb-[1234]/config/orientdb-server-config.xml
+sed -i 's/#\!\/bin\/sh/#\!\/bin\/bash/g' orientdb-[1234]/bin/dserver.sh
+sed -i 's/MAXHEAP=-Xmx512m/MAXHEAP=-Xmx2048m/g' orientdb-[1234]/bin/server.sh
+for d in $(echo orientdb-[1234]) ; do
+  pushd $d
+  ./bin/dserver.sh &
+  popd
+done
+# .. wait for servers to come up
+./orientdb-1/bin/console.sh "create database remote:localhost/test root password plocal graph; alter database custom useLightweightEdges=true; create class Testing extends V;"
+# .. wait for db to sync to all servers
+java -Xss512m -jar ./orientdb-test/target/orientdb-test-0.0.1-SNAPSHOT-jar-with-dependencies.jar -db remote:localhost:2424/test -j1 -minv=1 -maxv=5 -ef=1.3 &
+java -Xss512m -jar ./orientdb-test/target/orientdb-test-0.0.1-SNAPSHOT-jar-with-dependencies.jar -db remote:localhost:2425/test -j1 -minv=1 -maxv=5 -ef=1.3 &
+java -Xss512m -jar ./orientdb-test/target/orientdb-test-0.0.1-SNAPSHOT-jar-with-dependencies.jar -db remote:localhost:2426/test -j1 -minv=1 -maxv=5 -ef=1.3 &
+java -Xss512m -jar ./orientdb-test/target/orientdb-test-0.0.1-SNAPSHOT-jar-with-dependencies.jar -db remote:localhost:2427/test -j1 -minv=1 -maxv=5 -ef=1.3 &
+
+# Kill everything
+ps -ef | grep OServerMain | grep java | awk '{print $2}' | xargs kill -9
+ps -ef | grep orientdb-test | grep java | awk '{print $2}' | xargs kill -9
+
+
+
+
+
+
+
