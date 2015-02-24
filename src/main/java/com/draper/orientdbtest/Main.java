@@ -111,7 +111,7 @@ public class Main {
     // Add a class with some clusters
     OrientGraphNoTx DB = DBC.getNoTx();
     try {
-      addClass(DB, "Testing", "V", 500);
+    //  addClass(DB, "Testing", "V", 500);
     } finally {
       DB.shutdown();
     }
