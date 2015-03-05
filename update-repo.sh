@@ -3,7 +3,7 @@
 # Update repo directory with the latest libraries from /opt/orientdb/lib
 # This is required when yuou recompile orientdb!
 
-VERSION="2.0.3"
+VERSION="2.0.4"
 BASEDIR=../orientdb/distribution/target/
 REPODIR=repo/
 GROUPID="com.orientechnologies"
